@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import PropTypes from 'prop-types';
+import Header from './header';
+
+const Xyz = () => <h1>Hello</h1>;
 
 class App extends Component {
+  state = {
+    name: 'Yagnesh',
+    lastname: 'Modh',
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input type="button" value="click me" onClick={() => this.setState({ name: 'Gopinath' })} />
+        <Header title={this.state.name} caption="Hello world" />
       </div>
     );
   }
 }
+
+App.propTypes = {};
 
 export default App;
