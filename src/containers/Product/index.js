@@ -28,6 +28,7 @@ class Product extends Component {
     this.updateProduct = this.updateProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.test = this.test.bind(this);
   }
 
   onChangeText(e) {
@@ -68,12 +69,17 @@ class Product extends Component {
   onSearch(e) {
     e.preventDefault();
     const { productList } = this.state;
+    console.log(this.searchText.name);
     this.setState({
       productList: productList.filter(
         x => x.productName.toLowerCase() === this.searchText.value.toLowerCase(),
       ),
     });
     this.searchText.value = '';
+  }
+
+  test() {
+    alert('text');
   }
 
   render() {
