@@ -27,6 +27,7 @@ class Product extends Component {
     this.onSubmitForm = this.onSubmitForm.bind(this);
     this.updateProduct = this.updateProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   onChangeText(e) {
@@ -62,6 +63,17 @@ class Product extends Component {
     this.setState({
       productList: productList.filter(x => x.id !== item.id),
     });
+  }
+
+  onSearch(e) {
+    e.preventDefault();
+    const { productList } = this.state;
+    this.setState({
+      productList: productList.filter(
+        x => x.productName.toLowerCase() === this.searchText.value.toLowerCase(),
+      ),
+    });
+    this.searchText.value = '';
   }
 
   render() {
@@ -102,6 +114,19 @@ class Product extends Component {
             onChange={this.onChangeText}
           />
           <input style={styles.wrapper} type="submit" value="Submit" />
+        </form>
+        <form onSubmit={this.onSearch}>
+          <input
+            type="text"
+            ref={(ref) => {
+              this.searchText = ref;
+            }}
+            name="search"
+            onChange={(e) => {
+              this.searchText.value = e.target.value;
+            }}
+          />
+          <input type="submit" value="Search" />
         </form>
         <table
           style={{
