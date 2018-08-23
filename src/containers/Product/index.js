@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { action } from '../../actions';
+import * as types from '../../constants/actionTypes';
 
 const styles = {
   wrapper: {
@@ -79,13 +82,20 @@ class Product extends Component {
   }
 
   test() {
-    alert('text');
+    const { actions } = this.props;
+    actions(types.LOAD_PRODUCTS);
+    setTimeout(() => {
+      actions(types.LOAD_PRODUCTS_FAIL, 'Oops! something goes wrong');
+    }, 3000);
   }
 
   render() {
     const { product, productList } = this.state;
+    const { products } = this.props;
     return (
       <div>
+        {products.loading && <span>Loading.....</span>}
+        {products.error && <span>{products.error}</span>}
         <form
           style={{
             display: 'flex',
@@ -163,6 +173,7 @@ class Product extends Component {
             ))}
           </tbody>
         </table>
+        <input type="button" value="test" onClick={this.test} />
       </div>
     );
   }
@@ -170,4 +181,15 @@ class Product extends Component {
 
 Product.propTypes = {};
 
-export default Product;
+const mapStateToProps = state => ({
+  products: state.products,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: (type, payload) => dispatch(action(type, payload)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Product);

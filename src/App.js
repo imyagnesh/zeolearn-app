@@ -8,12 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Product
-          ref={(ref) => {
-            this.product = ref;
-          }}
-        />
-        <input type="button" value="Text" onClick={() => this.product.test()} />
+        <Product />
       </div>
     );
   }
