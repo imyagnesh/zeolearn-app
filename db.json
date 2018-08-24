@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "productName": "iPhone",
+      "productType": "Mobile",
+      "price": 20,
+      "id": 1
+    },
+    {
+      "productName": "nexus",
+      "productType": "Mobile",
+      "price": 14,
+      "id": 2
+    },
+    {
+      "productName": "asdfasdf",
+      "productType": "sadfasdf",
+      "price": "40",
+      "id": 3
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { action } from '../../actions';
+import { bindActionCreators } from 'redux';
+import action from '../../actions';
 import * as types from '../../constants/actionTypes';
 
 const styles = {
@@ -34,6 +35,11 @@ class Product extends Component {
     this.test = this.test.bind(this);
   }
 
+  componentWillMount() {
+    const { actions } = this.props;
+    actions.getProducts();
+  }
+
   onChangeText(e) {
     const { product } = this.state;
     this.setState({ product: { ...product, [e.target.name]: e.target.value } });
@@ -49,8 +55,13 @@ class Product extends Component {
         product: initialProduct,
       });
     } else {
+      const { actions } = this.props;
+      actions.saveProducts({
+        productName: product.productName,
+        productType: product.productType,
+        price: product.price,
+      });
       this.setState({
-        productList: [...productList, { ...product, id: new Date().getTime() }],
         product: initialProduct,
       });
     }
@@ -83,19 +94,20 @@ class Product extends Component {
 
   test() {
     const { actions } = this.props;
-    actions(types.LOAD_PRODUCTS);
-    setTimeout(() => {
-      actions(types.LOAD_PRODUCTS_FAIL, 'Oops! something goes wrong');
-    }, 3000);
+    // actions(types.LOAD_PRODUCTS);
+    // setTimeout(() => {
+    //   actions(types.LOAD_PRODUCTS_FAIL, 'Oops! something goes wrong');
+    // }, 3000);
   }
 
   render() {
     const { product, productList } = this.state;
     const { products } = this.props;
+    const { loading, data, error } = products;
     return (
       <div>
-        {products.loading && <span>Loading.....</span>}
-        {products.error && <span>{products.error}</span>}
+        {loading && <span>Loading.....</span>}
+        {error && <span>{error.toString()}</span>}
         <form
           style={{
             display: 'flex',
@@ -159,7 +171,7 @@ class Product extends Component {
             </tr>
           </thead>
           <tbody>
-            {productList.map(item => (
+            {data.map(item => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.productName}</td>
@@ -186,7 +198,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: (type, payload) => dispatch(action(type, payload)),
+  actions: bindActionCreators(action, dispatch),
 });
 
 export default connect(
