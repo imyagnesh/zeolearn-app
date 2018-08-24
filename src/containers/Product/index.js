@@ -19,13 +19,13 @@ const initialProduct = {
 };
 
 class Product extends Component {
-  state = {
-    product: initialProduct,
-    productList: [],
-  };
-
   constructor(props) {
     super(props);
+
+    this.state = {
+      product: initialProduct,
+      productList: [],
+    };
 
     this.onChangeText = this.onChangeText.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
