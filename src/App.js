@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import Product from './containers/Product';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Route from './route';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 class App extends Component {
-  state = {};
-
   render() {
     return (
-      <div className="App">
-        <Product />
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <Route />
+          <Footer />
+        </div>
+      </Router>
     );
   }
 }

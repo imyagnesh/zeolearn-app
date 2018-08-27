@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import action from '../../actions';
 import * as types from '../../constants/actionTypes';
+import CreateProduct from '../../components/CreateProduct';
+import ProductList from '../../components/ProductList';
 
 const styles = {
   wrapper: {
@@ -108,41 +110,11 @@ class Product extends Component {
       <div>
         {loading && <span>Loading.....</span>}
         {error && <span>{error.toString()}</span>}
-        <form
-          style={{
-            display: 'flex',
-            flex: 1,
-            flexDirection: 'column',
-          }}
-          onSubmit={this.onSubmitForm}
-        >
-          <input type="hidden" value={product.id} name="id" />
-          <input
-            ref={(ref) => {
-              this.productName = ref;
-            }}
-            style={styles.wrapper}
-            type="text"
-            value={product.productName}
-            name="productName"
-            onChange={this.onChangeText}
-          />
-          <input
-            style={styles.wrapper}
-            type="text"
-            value={product.productType}
-            name="productType"
-            onChange={this.onChangeText}
-          />
-          <input
-            style={styles.wrapper}
-            type="number"
-            value={product.price}
-            name="price"
-            onChange={this.onChangeText}
-          />
-          <input style={styles.wrapper} type="submit" value="Submit" />
-        </form>
+        <CreateProduct
+          product={product}
+          onSubmitForm={this.onSubmitForm}
+          onChangeText={this.onChangeText}
+        />
         <form onSubmit={this.onSearch}>
           <input
             type="text"
@@ -156,36 +128,11 @@ class Product extends Component {
           />
           <input type="submit" value="Search" />
         </form>
-        <table
-          style={{
-            width: '100%',
-          }}
-        >
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Product Name</th>
-              <th>Product Type</th>
-              <th>Price</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(item => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.productName}</td>
-                <td>{item.productType}</td>
-                <td>{item.price}</td>
-                <td>
-                  <input type="button" value="edit" onClick={() => this.updateProduct(item)} />
-                  <input type="button" value="delete" onClick={() => this.deleteProduct(item)} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <input type="button" value="test" onClick={this.test} />
+        <ProductList
+          data={data}
+          updateProduct={this.updateProduct}
+          deleteProduct={this.deleteProduct}
+        />
       </div>
     );
   }
