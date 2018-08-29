@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = () => (
+const Header = ({ locale }) => (
   <ul>
     <li>
       <Link to="/">Home</Link>

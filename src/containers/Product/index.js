@@ -6,6 +6,7 @@ import action from '../../actions';
 import * as types from '../../constants/actionTypes';
 import CreateProduct from '../../components/CreateProduct';
 import ProductList from '../../components/ProductList';
+// import { LocaleContext } from '../../App';
 
 const styles = {
   wrapper: {
@@ -110,6 +111,7 @@ class Product extends Component {
       <div>
         {loading && <span>Loading.....</span>}
         {error && <span>{error.toString()}</span>}
+        {/* <LocaleContext.Consumer>{context => <h1>{context.locale}</h1>}</LocaleContext.Consumer> */}
         <CreateProduct
           product={product}
           onSubmitForm={this.onSubmitForm}

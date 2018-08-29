@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 export default class SearchForm extends Component {
   static propTypes = {
-    onSearch: PropTypes.func.isRequired,,
+    onSearch: PropTypes.func.isRequired,
   };
 
   render() {
-      const {onSearch} = this.props;
+    const { onSearch } = this.props;
     return (
       <form onSubmit={e => onSearch(e)}>
         <input

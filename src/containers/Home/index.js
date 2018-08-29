@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import Wrapper from '../../HOC/wrapper';
+import { LocaleContext } from '../../App';
 
 class Home extends Component {
   static propTypes = {};
@@ -26,11 +27,16 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Home</h1>
-        <Link to="/about">About</Link>
-        <input type="button" value="Go to About" onClick={this.changeRoute} />
-      </div>
+      <LocaleContext.Consumer>
+        {context => (
+          <div>
+            <h1>Home</h1>
+            <Link to="/about">About</Link>
+            <h1>{context.locale}</h1>
+            <input type="button" value="Go to About" onClick={this.changeRoute} />
+          </div>
+        )}
+      </LocaleContext.Consumer>
     );
   }
 }
