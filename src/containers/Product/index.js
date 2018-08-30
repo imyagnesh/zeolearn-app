@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import action from '../../actions';
-import * as types from '../../constants/actionTypes';
-import CreateProduct from '../../components/CreateProduct';
-import ProductList from '../../components/ProductList';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import action from "../../actions";
+import * as types from "../../constants/actionTypes";
+import CreateProduct from "../../components/CreateProduct";
+import ProductList from "../../components/ProductList";
 // import { LocaleContext } from '../../App';
 
 const styles = {
   wrapper: {
-    margin: '5px',
-  },
+    margin: "5px"
+  }
 };
 
 const initialProduct = {
-  id: '',
-  productName: '',
-  productType: '',
-  price: 0,
+  id: "",
+  productName: "",
+  productType: "",
+  price: 0
 };
 
-class Product extends Component {
+export class Product extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       product: initialProduct,
-      productList: [],
+      productList: []
     };
 
     this.onChangeText = this.onChangeText.bind(this);
@@ -54,32 +54,36 @@ class Product extends Component {
     if (product.id) {
       const index = productList.findIndex(x => x.id === product.id);
       this.setState({
-        productList: [...productList.splice(0, index), product, ...productList.splice(index + 1)],
-        product: initialProduct,
+        productList: [
+          ...productList.splice(0, index),
+          product,
+          ...productList.splice(index + 1)
+        ],
+        product: initialProduct
       });
     } else {
       const { actions } = this.props;
       actions.saveProducts({
         productName: product.productName,
         productType: product.productType,
-        price: product.price,
+        price: product.price
       });
       this.setState({
-        product: initialProduct,
+        product: initialProduct
       });
     }
   }
 
   updateProduct(item) {
     this.setState({
-      product: item,
+      product: item
     });
   }
 
   deleteProduct(item) {
     const { productList } = this.state;
     this.setState({
-      productList: productList.filter(x => x.id !== item.id),
+      productList: productList.filter(x => x.id !== item.id)
     });
   }
 
@@ -89,10 +93,10 @@ class Product extends Component {
     console.log(this.searchText.name);
     this.setState({
       productList: productList.filter(
-        x => x.productName.toLowerCase() === this.searchText.value.toLowerCase(),
-      ),
+        x => x.productName.toLowerCase() === this.searchText.value.toLowerCase()
+      )
     });
-    this.searchText.value = '';
+    this.searchText.value = "";
   }
 
   test() {
@@ -120,11 +124,11 @@ class Product extends Component {
         <form onSubmit={this.onSearch}>
           <input
             type="text"
-            ref={(ref) => {
+            ref={ref => {
               this.searchText = ref;
             }}
             name="search"
-            onChange={(e) => {
+            onChange={e => {
               this.searchText.value = e.target.value;
             }}
           />
@@ -143,14 +147,14 @@ class Product extends Component {
 Product.propTypes = {};
 
 const mapStateToProps = state => ({
-  products: state.products,
+  products: state.products
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(action, dispatch),
+  actions: bindActionCreators(action, dispatch)
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Product);
