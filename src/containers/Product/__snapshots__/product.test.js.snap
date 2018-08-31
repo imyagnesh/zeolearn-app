@@ -2,6 +2,9 @@
 
 exports[`Product renders correctly 1`] = `
 <div>
+  <h1>
+    Product
+  </h1>
   <div
     style={
       Object {

@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-const initialProduct = {
+export const initialProduct = {
   id: "",
   productName: "",
   productType: "",
@@ -36,6 +36,9 @@ export class Product extends Component {
     this.deleteProduct = this.deleteProduct.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.test = this.test.bind(this);
+    this.searchText = {
+      value: "xyz"
+    };
   }
 
   componentWillMount() {
@@ -90,13 +93,14 @@ export class Product extends Component {
   onSearch(e) {
     e.preventDefault();
     const { productList } = this.state;
-    console.log(this.searchText.name);
     this.setState({
       productList: productList.filter(
         x => x.productName.toLowerCase() === this.searchText.value.toLowerCase()
       )
     });
     this.searchText.value = "";
+    const { actions } = this.props;
+    actions.saveProducts();
   }
 
   test() {
@@ -116,6 +120,7 @@ export class Product extends Component {
         {loading && <span>Loading.....</span>}
         {error && <span>{error.toString()}</span>}
         {/* <LocaleContext.Consumer>{context => <h1>{context.locale}</h1>}</LocaleContext.Consumer> */}
+        <h1>Product</h1>
         <CreateProduct
           product={product}
           onSubmitForm={this.onSubmitForm}
