@@ -1,9 +1,9 @@
-import * as types from '../constants/actionTypes';
+import * as types from "../constants/actionTypes";
 
-const initialState = {
+export const initialState = {
   loading: false,
   data: [],
-  error: false,
+  error: false
 };
 
 export default (state = initialState, action) => {
@@ -18,7 +18,11 @@ export default (state = initialState, action) => {
       return { ...state, loading: false, data: action.payload };
 
     case types.SAVE_PRODUCTS_SUCCESS:
-      return { ...state, loading: false, data: [...state.data, action.payload] };
+      return {
+        ...state,
+        loading: false,
+        data: [...state.data, action.payload]
+      };
 
     default:
       return state;

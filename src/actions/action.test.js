@@ -2,7 +2,7 @@ import fetchMock from "fetch-mock";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import * as types from "../constants/actionTypes";
-import { action, getProducts } from "./index";
+import { action, getProducts, saveProducts } from "./index";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -37,6 +37,38 @@ describe("async actions", () => {
     ];
     const store = mockStore({ todos: [] });
     return store.dispatch(getProducts()).then(() => {
+      // return of async actions
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it("testing saveProducts", () => {
+    fetchMock.mock("http://localhost:3004/products", {
+      method: "POST",
+      body: {
+        productName: "asdfasdf",
+        productType: "sadfasdf",
+        price: "40"
+      },
+      headers: { "content-type": "application/json" }
+    });
+    const expectedActions = [
+      { type: types.PRODUCTS_LOADING, payload: undefined },
+      {
+        type: types.SAVE_PRODUCTS_SUCCESS,
+        payload: {
+          method: "POST",
+          body: {
+            productName: "asdfasdf",
+            productType: "sadfasdf",
+            price: "40"
+          },
+          headers: { "content-type": "application/json" }
+        }
+      }
+    ];
+    const store = mockStore({ todos: [] });
+    return store.dispatch(saveProducts()).then(() => {
       // return of async actions
       expect(store.getActions()).toEqual(expectedActions);
     });
