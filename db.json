@@ -1,0 +1,35 @@
+{
+  "products": [
+    {
+      "productName": "nexus1",
+      "productType": "Mobile1",
+      "price": 20,
+      "id": 1
+    },
+    {
+      "productName": "nexus",
+      "productType": "Mobile",
+      "price": 14,
+      "id": 2
+    },
+    {
+      "productName": "asdfasdf",
+      "productType": "sadfasdf",
+      "price": "40",
+      "id": 3
+    },
+    {
+      "productName": "test1",
+      "productType": "test2",
+      "price": "20",
+      "id": 4
+    }
+  ],
+  "notes": [
+    {
+      "note": "test note",
+      "description": "test description",
+      "id": 1
+    }
+  ]
+}

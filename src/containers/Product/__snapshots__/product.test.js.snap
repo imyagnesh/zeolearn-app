@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Product renders correctly 1`] = `
+<div>
+  <h1>
+    Product
+  </h1>
+  <div
+    style={
+      Object {
+        "padding": 20,
+      }
+    }
+  >
+    <h2>
+      Hello John
+    </h2>
+    <form
+      onSubmit={[Function]}
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+        }
+      }
+    >
+      <h1>
+        4
+      </h1>
+      <input
+        name="id"
+        type="hidden"
+        value=""
+      />
+      <input
+        name="productName"
+        onChange={[Function]}
+        style={
+          Object {
+            "margin": "5px",
+          }
+        }
+        type="text"
+        value=""
+      />
+      <input
+        name="productType"
+        onChange={[Function]}
+        style={
+          Object {
+            "margin": "5px",
+          }
+        }
+        type="text"
+        value=""
+      />
+      <input
+        name="price"
+        onChange={[Function]}
+        style={
+          Object {
+            "margin": "5px",
+          }
+        }
+        type="number"
+        value={0}
+      />
+      <input
+        style={
+          Object {
+            "margin": "5px",
+          }
+        }
+        type="submit"
+        value="Submit"
+      />
+    </form>
+  </div>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      name="search"
+      onChange={[Function]}
+      type="text"
+    />
+    <input
+      type="submit"
+      value="Search"
+    />
+  </form>
+  <div
+    style={
+      Object {
+        "padding": 20,
+      }
+    }
+  >
+    <h2>
+      Hello John
+    </h2>
+    <div>
+      <h1>
+        Products
+      </h1>
+      <table
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+      >
+        <thead>
+          <tr>
+            <th>
+              ID
+            </th>
+            <th>
+              Product Name
+            </th>
+            <th>
+              Product Type
+            </th>
+            <th>
+              Price
+            </th>
+            <th>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>
+</div>
+`;

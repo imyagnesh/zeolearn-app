@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.verticalMargin {
+  margin: 10px 0;
+}
+
+.buttons {
+  flex-direction: row;
+}
