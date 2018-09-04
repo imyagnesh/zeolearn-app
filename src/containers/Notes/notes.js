@@ -12,6 +12,8 @@ class notes extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onCreteNote = this.onCreteNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
+    this.editNote = this.editNote.bind(this);
   }
 
   componentWillMount = () => {
@@ -26,7 +28,6 @@ class notes extends Component {
 
   onSearch(e) {
     e.preventDefault();
-    alert(this.state.searchText);
   }
 
   onCreteNote() {
@@ -36,9 +37,27 @@ class notes extends Component {
     });
   }
 
+  deleteNote(note) {
+    this.props.actions.deleteNote(note);
+  }
+
+  editNote(note) {
+    const { history } = this.props;
+    history.push({
+      pathname: "/createNote",
+      state: { note }
+    });
+  }
+
   render() {
     const { searchText } = this.state;
     const { loading, data, error } = this.props.notes;
+
+    const newData = data.filter(
+      x =>
+        x.note.toLowerCase().includes(searchText.toLowerCase()) ||
+        x.description.toLowerCase().includes(searchText.toLowerCase())
+    );
     if (loading) {
       return <h1>Loading....</h1>;
     }
@@ -56,22 +75,39 @@ class notes extends Component {
         </form>
         <input type="button" value="Create Note" onClick={this.onCreteNote} />
 
-        <table>
-          <thead>
-            <tr>
-              <th>Note</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(item => (
-              <tr key={item.id}>
-                <td>{item.note}</td>
-                <td>{item.description}</td>
+        {newData.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Note</th>
+                <th>Description</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {newData.map(item => (
+                <tr key={item.id}>
+                  <td>{item.note}</td>
+                  <td>{item.description}</td>
+                  <td>
+                    <input
+                      type="button"
+                      value="Edit"
+                      onClick={() => this.editNote(item)}
+                    />
+                    <input
+                      type="button"
+                      value="Delete"
+                      onClick={() => this.deleteNote(item)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No Records Found</p>
+        )}
       </div>
     );
   }

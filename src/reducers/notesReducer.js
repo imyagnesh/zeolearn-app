@@ -23,16 +23,24 @@ export default (state = initialState, action) => {
 
     case types.NOTE_UPDATED: {
       const index = state.data.findIndex(x => x.id === payload.id);
-      return [
-        ...state.data.slice(0, index),
-        payload,
-        ...state.data.slice(index + 1)
-      ];
+      return {
+        ...state,
+        loading: false,
+        data: [
+          ...state.data.slice(0, index),
+          payload,
+          ...state.data.slice(index + 1)
+        ]
+      };
     }
 
     case types.NOTE_DELETED: {
       const index = state.data.findIndex(x => x.id === payload.id);
-      return [...state.data.slice(0, index), ...state.data.slice(index + 1)];
+      return {
+        ...state,
+        loading: false,
+        data: [...state.data.slice(0, index), ...state.data.slice(index + 1)]
+      };
     }
 
     default:
