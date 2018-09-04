@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import NoteList from "../../components/NoteList/noteList";
+import TextInput from "../../components/TextInput";
 import "./styles.css";
 
 class notes extends Component {
@@ -63,8 +65,9 @@ class notes extends Component {
     }
     return (
       <div>
+        {error && <p>{error}</p>}
         <form onSubmit={this.onSearch}>
-          <input
+          <TextInput
             type="text"
             placeholder="search"
             name="searchText"
@@ -74,40 +77,11 @@ class notes extends Component {
           <input type="submit" value="Search" />
         </form>
         <input type="button" value="Create Note" onClick={this.onCreteNote} />
-
-        {newData.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Note</th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {newData.map(item => (
-                <tr key={item.id}>
-                  <td>{item.note}</td>
-                  <td>{item.description}</td>
-                  <td>
-                    <input
-                      type="button"
-                      value="Edit"
-                      onClick={() => this.editNote(item)}
-                    />
-                    <input
-                      type="button"
-                      value="Delete"
-                      onClick={() => this.deleteNote(item)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No Records Found</p>
-        )}
+        <NoteList
+          data={newData}
+          editNote={this.editNote}
+          deleteNote={this.deleteNote}
+        />
       </div>
     );
   }

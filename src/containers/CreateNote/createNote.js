@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import TextInput from "../../components/TextInput";
 import "./style.css";
 import Notes from "../Notes";
 
@@ -17,8 +18,6 @@ class createNote extends Component {
     if (props.location.state) {
       initialState = { ...initialState, ...props.location.state.note };
     }
-
-    console.log(initialState);
 
     this.state = initialState;
     this.onChangeText = this.onChangeText.bind(this);
@@ -43,22 +42,19 @@ class createNote extends Component {
     if (!this.state.description) {
       error.push("Description is required");
     }
+    let apiCall = null;
     if (error.length <= 0) {
       if (this.state.id) {
-        this.props.actions.updateNote(this.state).then(() => {
-          const { history } = this.props;
-          history.push({
-            pathname: "/notes"
-          });
-        });
+        apiCall = this.props.actions.updateNote(this.state);
       } else {
-        this.props.actions.saveNote(this.state).then(() => {
-          const { history } = this.props;
-          history.push({
-            pathname: "/notes"
-          });
-        });
+        apiCall = this.props.actions.saveNote(this.state);
       }
+      apiCall.then(() => {
+        const { history } = this.props;
+        history.push({
+          pathname: "/notes"
+        });
+      });
     } else {
       this.setState({
         error: error
@@ -93,7 +89,7 @@ class createNote extends Component {
           </div>
         ))}
         <input type="hidden" value={this.state.id} />
-        <input
+        <TextInput
           type="text"
           placeholder="Note"
           name="note"
